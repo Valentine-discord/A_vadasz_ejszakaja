@@ -1,0 +1,116 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Texture/Prototype/PNG/Dark/texture_01.png" type="Texture" id=1]
+[ext_resource path="res://Texture/Prototype/PNG/Light/texture_08.png" type="Texture" id=2]
+[ext_resource path="res://Texture/Prototype/PNG/Orange/texture_05.png" type="Texture" id=3]
+[ext_resource path="res://Texture/Prototype/PNG/Light/texture_07.png" type="Texture" id=4]
+[ext_resource path="res://Texture/istockphoto-1300107681-612x612.jpg" type="Texture" id=5]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 1 )
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 2 )
+uv1_scale = Vector3( 2, 2, 2 )
+uv1_triplanar = true
+uv2_scale = Vector3( 2, 2, 2 )
+uv2_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 1 )
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 4 )
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="ProceduralSky" id=5]
+sky_top_color = Color( 0.317647, 0.317647, 0.317647, 1 )
+sky_horizon_color = Color( 0.215686, 0.215686, 0.215686, 1 )
+ground_horizon_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+background_sky = SubResource( 5 )
+
+[sub_resource type="PlaneMesh" id=8]
+subdivide_width = 16
+subdivide_depth = 16
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+albedo_color = Color( 0.156863, 0.431373, 0.447059, 1 )
+albedo_texture = ExtResource( 5 )
+depth_enabled = true
+depth_scale = 0.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.0
+refraction_enabled = true
+refraction_scale = 0.39
+refraction_texture_channel = 0
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_in_baked_light = true
+lightmap_scale = 3
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1.32098, 0, 0, 0, 1, 0, 0.328892, 0 )
+material = SubResource( 1 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.40472, 0 )
+operation = 2
+material = SubResource( 2 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.216, 0, 0, 0, 0.36, 0, 0, 0, 1.07712, 0, 0.168876, 0 )
+operation = 2
+material = SubResource( 3 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner"]
+transform = Transform( 0.216363, 0, 0, 0, -8.76304e-08, -0.2145, 0, 2.00475, -9.37609e-09, 0, 0.52107, 2.27767e-08 )
+operation = 2
+material = SubResource( 4 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.600965, 0, 0, 0, 0.798503, 0, 0, 0, 0.600965, 0, 0.800233, 0 )
+operation = 2
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.262215, 0, 0, 0, 0.262215, 0, 0, 0, 0.262215, 0, -0.00235522, 0 )
+operation = 2
+material = SubResource( 7 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338858, 0.655762 )
+
+[node name="BakedLightmap" type="BakedLightmap" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.04046, -8.91912e-08 )
+quality = 3
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.00112069, 1.46683, -0.000315806 )
+light_color = Color( 0.901961, 0.768627, 0.458824, 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 6 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 0.680354, 0, 0, 0, 1, 0, 0, 0, 0.680354, 0, -0.217871, 0 )
+use_in_baked_light = true
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
