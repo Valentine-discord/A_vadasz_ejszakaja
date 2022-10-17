@@ -1,3 +1,2 @@
 # A_vadasz_ejszakaja
-vadika gyuláu
-Mint Buzik vagytok
+A Vadász Éjszakája egy new upcoming MMORPG horror game ficsöring the sceri pg corridors survival and magic.
